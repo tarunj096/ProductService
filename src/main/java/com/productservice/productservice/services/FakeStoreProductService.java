@@ -14,8 +14,8 @@ import java.util.List;
 public class FakeStoreProductService implements ProductService {
 
     private RestTemplateBuilder restTemplateBuilder;
-    String getProductUrl = "https://fakestoreapi.com/products/{id}";
-    String getAllProductsUrl = "https://fakestoreapi.com/products";
+    String singleProductUrl = "https://fakestoreapi.com/products/{id}";
+    String allProductsUrl = "https://fakestoreapi.com/products";
     FakeStoreProductService(RestTemplateBuilder restTemplateBuilder){
         this.restTemplateBuilder = restTemplateBuilder;
     }
@@ -33,14 +33,14 @@ public class FakeStoreProductService implements ProductService {
     @Override
     public GenericProductDto getProductById(Long id) {
         RestTemplate restTemplate = restTemplateBuilder.build();
-       ResponseEntity<FakeStoreProductDto> responseEntity = restTemplate.getForEntity(getProductUrl,FakeStoreProductDto.class,id);
+       ResponseEntity<FakeStoreProductDto> responseEntity = restTemplate.getForEntity(singleProductUrl,FakeStoreProductDto.class,id);
         return convertToGenericProductDto(responseEntity.getBody());
     }
 
     @Override
     public List<GenericProductDto> getAllProducts() {
         RestTemplate restTemplate = restTemplateBuilder.build();
-        ResponseEntity<FakeStoreProductDto[]> responseEntity = restTemplate.getForEntity(getAllProductsUrl,FakeStoreProductDto[].class);
+        ResponseEntity<FakeStoreProductDto[]> responseEntity = restTemplate.getForEntity(allProductsUrl,FakeStoreProductDto[].class);
         List<GenericProductDto> result = new ArrayList<>();
         List<FakeStoreProductDto> fakeStoreProductDtoList = List.of(responseEntity.getBody());
         for (FakeStoreProductDto fakeStoreProductDto:fakeStoreProductDtoList){
@@ -50,9 +50,12 @@ public class FakeStoreProductService implements ProductService {
     }
 
     @Override
-    public void createProduct() {
-
+    public GenericProductDto createProduct(GenericProductDto genericProductDto) {
+        RestTemplate restTemplate = restTemplateBuilder.build();
+        ResponseEntity<FakeStoreProductDto> responseEntity = restTemplate.postForEntity(allProductsUrl,genericProductDto,FakeStoreProductDto.class);
+        return convertToGenericProductDto(responseEntity.getBody());
     }
+
 
     @Override
     public void deleteProductById() {
