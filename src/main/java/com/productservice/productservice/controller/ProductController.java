@@ -28,15 +28,16 @@ public class ProductController {
         return productService.getAllProducts();
     }
     @DeleteMapping("/{id}")
-    public void deleteProductById(){
-
+    public GenericProductDto deleteProductById(@PathVariable("id") Long id){
+        return productService.deleteProductById(id);
     }
     @PostMapping("/")
     public GenericProductDto createProduct(@RequestBody GenericProductDto genericProductDto){
         return productService.createProduct(genericProductDto);
     }
 
-    public void updateProductById(){
+    @PatchMapping("/{id}")
+    public void updateProductById(@PathVariable("id") Long id){
 
     }
 
