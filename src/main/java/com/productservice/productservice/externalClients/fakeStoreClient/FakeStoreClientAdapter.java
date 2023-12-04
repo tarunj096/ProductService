@@ -23,9 +23,10 @@ public class FakeStoreClientAdapter {
 
     private String pathForProducts;
     String singleProductUrl;
-    String allProductsUrl = "https://fakestoreapi.com/products";
+    String allProductsUrl;
     FakeStoreClientAdapter(RestTemplateBuilder restTemplateBuilder,@Value("${fakestore.api.url}") String fakeStoreUrl, @Value("${fakestore.api.path.products}") String pathForProducts){
         this.singleProductUrl = fakeStoreUrl+pathForProducts+"/{id}";
+        this.allProductsUrl = fakeStoreUrl+pathForProducts;
         this.restTemplateBuilder = restTemplateBuilder;
     }
 
