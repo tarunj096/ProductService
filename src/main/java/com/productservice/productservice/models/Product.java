@@ -14,11 +14,9 @@ public class Product extends BaseModel{
 
     private String image;
     @ManyToOne(optional = false)
-    @JoinColumn(nullable = false)
     private Category category;
 
-    @OneToOne(optional = false)
-    @JoinColumn(nullable = false)
+    @OneToOne(cascade = {CascadeType.REMOVE,CascadeType.PERSIST})
     private Price price;
 
 

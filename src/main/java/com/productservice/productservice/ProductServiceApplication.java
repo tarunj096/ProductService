@@ -10,6 +10,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.Optional;
+import java.util.UUID;
+
 @SpringBootApplication
     public class ProductServiceApplication implements CommandLineRunner {
 
@@ -82,8 +85,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
         Price price  = new Price();
         price.setCurrency("INR");
         price.setValue(100000);
-       Price savedPrice =  priceRepository.save(price);
-
+//       Price savedPrice =  priceRepository.save(price);
+//
        Category category = new Category();
        category.setName("Apple Devices");
         Category savedCategory = categoryRepository.save(category);
@@ -92,8 +95,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
         product.setTitle("Iphone 15 Pro");
         product.setDescription("Best Iphone ever");
         product.setCategory(savedCategory);
-        product.setPrice(savedPrice);
+        product.setPrice(price);
         Product savedProduct = productRepository.save(product);
+
+
+       //priceRepository.deleteById(UUID.fromString( "2a104b38-36be-4d97-a037-c03b8cdf1e7f"));
+
+
 
 
     }
