@@ -11,6 +11,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -101,16 +102,18 @@ import java.util.UUID;
 //        product.setCategory(category);
 //        Product savedProduct = productRepository.save(product);
 
-        Optional<Category> optionalCategory = categoryRepository.findById(UUID.fromString("e79549fa-54db-47c4-9642-98b6418bc744"));
-        if (optionalCategory.isEmpty()){
-            throw new Exception("Category is null");
-        }
-
-        Category category = optionalCategory.get();
+//        Optional<Category> optionalCategory = categoryRepository.findById(UUID.fromString("e79549fa-54db-47c4-9642-98b6418bc744"));
+//        if (optionalCategory.isEmpty()){
+//            throw new Exception("Category is null");
+//        }
+//
+//        Category category = optionalCategory.get();
        //priceRepository.deleteById(UUID.fromString( "2a104b38-36be-4d97-a037-c03b8cdf1e7f"));
 
+       // List<Product> productList = productRepository.findAllByTitle("Iphone 15 pro");
 
+        List<Product> productList = productRepository.findAllByPrice_ValueGreaterThan(500);
 
-
+        List<Product> products = productRepository.findAllByPrice_ValueBetween(100,10000);
     }
 }
