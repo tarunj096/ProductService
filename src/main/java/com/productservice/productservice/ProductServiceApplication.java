@@ -6,6 +6,7 @@ import com.productservice.productservice.models.Product;
 import com.productservice.productservice.repositories.PriceRepository;
 import com.productservice.productservice.repositories.CategoryRepository;
 import com.productservice.productservice.repositories.ProductRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,17 +17,18 @@ import java.util.UUID;
 @SpringBootApplication
     public class ProductServiceApplication implements CommandLineRunner {
 
-    private final PriceRepository priceRepository;
     private final CategoryRepository categoryRepository;
     private final ProductRepository productRepository;
+    private final PriceRepository priceRepository;
 
-    public ProductServiceApplication(PriceRepository priceRepository,
-                                     CategoryRepository categoryRepository,
-                                     ProductRepository productRepository) {
-        this.priceRepository = priceRepository;
+    public ProductServiceApplication(CategoryRepository categoryRepository,
+                                     ProductRepository productRepository,
+                                     PriceRepository priceRepository) {
         this.categoryRepository = categoryRepository;
         this.productRepository = productRepository;
+        this.priceRepository = priceRepository;
     }
+
 
 //    private final CategoryRepository categoryRepository;
 //    private final ProductRepository productRepository;
@@ -50,6 +52,7 @@ import java.util.UUID;
 
 
     @Override
+//    @Transactional
     public void run(String... args) throws Exception {
 //        Mentor mentor = new Mentor();
 //        mentor.setName("Tarun J");
@@ -81,24 +84,29 @@ import java.util.UUID;
 //        for(Product product:products){
 //            System.out.println(product.getTitle());
 //        }
-
-        Price price  = new Price();
-        price.setCurrency("INR");
-        price.setValue(100000);
-//       Price savedPrice =  priceRepository.save(price);
+//        Category category = new Category();
+//        category.setName("Apple Devices");
+//        Category savedCategory = categoryRepository.save(category);
 //
-       Category category = new Category();
-       category.setName("Apple Devices");
-        Category savedCategory = categoryRepository.save(category);
+//        Price price = new Price();
+//        price.setCurrency("GBP");
+//        price.setValue(10000);
+//
+//
+//        Product product = new Product();
+//        product.setPrice(price);
+//        product.setTitle("Iphone 15 pro");
+//        product.setDescription("Best IPhone");
+//        product.setImage("IMG");
+//        product.setCategory(category);
+//        Product savedProduct = productRepository.save(product);
 
-        Product product = new Product();
-        product.setTitle("Iphone 15 Pro");
-        product.setDescription("Best Iphone ever");
-        product.setCategory(savedCategory);
-        product.setPrice(price);
-        Product savedProduct = productRepository.save(product);
+        Optional<Category> optionalCategory = categoryRepository.findById(UUID.fromString("e79549fa-54db-47c4-9642-98b6418bc744"));
+        if (optionalCategory.isEmpty()){
+            throw new Exception("Category is null");
+        }
 
-
+        Category category = optionalCategory.get();
        //priceRepository.deleteById(UUID.fromString( "2a104b38-36be-4d97-a037-c03b8cdf1e7f"));
 
 
