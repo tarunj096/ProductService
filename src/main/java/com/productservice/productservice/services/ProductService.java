@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.util.List;
 
 public interface ProductService {
-    GenericProductDto getProductById(Long id) throws ProductNotFoundException;
+    GenericProductDto getProductById(String authToken, Long id) throws ProductNotFoundException;
 
     List<GenericProductDto> getAllProducts();
 

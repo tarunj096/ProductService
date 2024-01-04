@@ -8,7 +8,7 @@ import java.util.List;
 @Service("self")
 public class SelfProductService implements ProductService{
     @Override
-    public GenericProductDto getProductById(Long id) {
+    public GenericProductDto getProductById(String authToken,Long id) {
         return null;
     }
 
