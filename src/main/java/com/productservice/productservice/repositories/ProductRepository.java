@@ -15,6 +15,7 @@ public interface ProductRepository extends JpaRepository<Product, UUID> {
 
     List<Product> findAllByTitle(String title);
 
+    List<Product> findAllByTitleContaining(String title);
     List<Product> findAllByPrice_ValueGreaterThan(Integer x);
 
     //@Query()
